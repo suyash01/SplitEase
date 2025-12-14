@@ -1,0 +1,51 @@
+{{if .}}
+<ul class="space-y-2">
+  {{range .}}
+  <li
+    class="p-3 border-b border-gray-100 last:border-b-0 flex justify-between items-center hover:bg-gray-50 smooth-transition rounded-lg"
+  >
+    <div class="flex-1 min-w-0">
+      <h3 class="text-base font-semibold text-gray-800 mb-0.5 truncate">
+        {{.Description}}
+      </h3>
+      <p class="text-xs text-gray-500">
+        Paid by
+        <span class="font-medium text-gray-700">{{.PaidBy}}</span>
+        on {{.CreatedAt.Format "Jan 02, 2006"}}
+      </p>
+    </div>
+    <div class="flex items-center gap-3 flex-shrink-0">
+      <span class="text-lg font-bold text-primary-600">
+        ₹{{printf "%.2f" .Amount}}
+      </span>
+      <button
+        class="bg-red-500 hover:bg-red-600 text-white font-semibold px-3 py-1.5 rounded-lg smooth-transition hover:-translate-y-0.5 hover:shadow-lg text-xs"
+        hx-delete="/expenses/delete/{{.ID}}"
+        hx-confirm="Are you sure you want to delete this expense?"
+        hx-target="closest li"
+        hx-swap="outerHTML swap:1s"
+      >
+        Delete
+      </button>
+    </div>
+  </li>
+  {{end}}
+</ul>
+{{else}}
+<div class="text-center text-gray-400 py-12">
+  <svg
+    class="w-16 h-16 mx-auto mb-3 text-gray-300"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+    ></path>
+  </svg>
+  <p class="text-sm">No expenses yet. Add your first expense to get started!</p>
+</div>
+{{end}}

@@ -1,0 +1,45 @@
+{{if .}}
+<div class="space-y-2">
+  {{range .}}
+  <div
+    class="p-3 rounded-lg flex justify-between items-center {{if gt .Amount 0.0}}bg-green-50 border-l-4 border-green-500{{else}}bg-red-50 border-l-4 border-red-500{{end}}"
+  >
+    <span class="font-semibold text-gray-800 text-base">{{.User}}</span>
+    <span
+      class="text-lg font-bold {{if gt .Amount 0.0}}text-green-600{{else}}text-red-600{{end}}"
+    >
+      {{if gt .Amount 0.0}} +₹{{printf "%.2f" .Amount}} {{else}} -₹{{printf
+      "%.2f" (abs .Amount)}} {{end}}
+    </span>
+  </div>
+  {{end}}
+  <div
+    class="mt-4 p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100"
+  >
+    <p class="text-xs text-gray-600 text-center leading-relaxed">
+      <span class="font-semibold text-green-700">Positive amounts</span>
+      indicate money owed to you
+      <br />
+      <span class="font-semibold text-red-700">Negative amounts</span>
+      indicate money you owe
+    </p>
+  </div>
+</div>
+{{else}}
+<div class="text-center text-gray-400 py-12">
+  <svg
+    class="w-16 h-16 mx-auto mb-3 text-gray-300"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+    ></path>
+  </svg>
+  <p class="text-sm font-medium">All balanced! No outstanding debts.</p>
+</div>
+{{end}}

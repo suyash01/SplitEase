@@ -1,0 +1,59 @@
+{{define "user-checkboxes.html"}} {{if .}} {{range .}}
+<div
+  class="flex items-center gap-2 p-1.5 hover:bg-gray-50 rounded-lg smooth-transition"
+>
+  <input
+    type="checkbox"
+    name="split_with"
+    value="{{.Name}}"
+    id="user-{{.ID}}"
+    class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500 focus:ring-2 cursor-pointer"
+  />
+  <label
+    for="user-{{.ID}}"
+    class="text-gray-700 font-medium cursor-pointer flex-1 text-sm"
+  >
+    {{.Name}}
+  </label>
+</div>
+{{end}} {{else}}
+<div class="text-center text-gray-400 py-4 text-xs">
+  No users yet. Add users in the Users tab.
+</div>
+{{end}} {{end}} {{define "user-list.html"}} {{if .}}
+<ul class="space-y-2">
+  {{range .}}
+  <li
+    class="p-3 border border-gray-200 rounded-lg flex justify-between items-center hover:bg-gray-50 smooth-transition"
+  >
+    <span class="font-semibold text-gray-800 text-base">{{.Name}}</span>
+    <button
+      class="bg-red-500 hover:bg-red-600 text-white font-semibold px-3 py-1.5 rounded-lg smooth-transition hover:-translate-y-0.5 hover:shadow-lg text-xs"
+      hx-delete="/users/delete/{{.ID}}"
+      hx-confirm="Delete {{.Name}}? This will fail if they have any expenses."
+      hx-target="closest li"
+      hx-swap="outerHTML swap:1s"
+    >
+      Delete
+    </button>
+  </li>
+  {{end}}
+</ul>
+{{else}}
+<div class="text-center text-gray-400 py-12">
+  <svg
+    class="w-16 h-16 mx-auto mb-3 text-gray-300"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+    ></path>
+  </svg>
+  <p class="text-sm">No users yet. Add your first user above!</p>
+</div>
+{{end}} {{end}}
