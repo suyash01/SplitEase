@@ -25,5 +25,6 @@ CREATE INDEX idx_splits_expense_id ON splits(expense_id);
 CREATE INDEX idx_splits_user_name ON splits(user_name);
 
 -- +goose Down
+DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS splits;
 DROP TABLE IF EXISTS expenses;

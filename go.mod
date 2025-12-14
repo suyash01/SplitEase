@@ -1,4 +1,4 @@
-module github.com/suyash01
+module github.com/suyash01/splitease
 
 go 1.25.5
 
