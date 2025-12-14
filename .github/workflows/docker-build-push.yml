@@ -9,7 +9,7 @@ on:
 
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-  DOCKER_IMAGE_NAME: suyash01/splitease
+  DOCKER_IMAGE_NAME: your-dockerhub-username/your-app-name
 
 jobs:
   build-unstable:
@@ -94,17 +94,9 @@ jobs:
           platforms: linux/amd64
           provenance: false
 
-      - name: Create source archives
-        run: |
-          git archive --format=zip --prefix=${{ github.event.repository.name }}-${{ steps.version.outputs.version }}/ HEAD > source-code.zip
-          git archive --format=tar.gz --prefix=${{ github.event.repository.name }}-${{ steps.version.outputs.version }}/ HEAD > source-code.tar.gz
-
-      - name: Update release with Docker info and source code
+      - name: Update release with Docker info
         uses: softprops/action-gh-release@v1
         with:
-          files: |
-            source-code.zip
-            source-code.tar.gz
           body: |
             ## Docker Image
 
@@ -116,10 +108,6 @@ jobs:
             ```
 
             **DockerHub Repository**: https://hub.docker.com/r/${{ env.DOCKER_IMAGE_NAME }}
-
-            ## Source Code
-
-            Source code archives are attached to this release.
 
             ---
             ${{ github.event.release.body }}
